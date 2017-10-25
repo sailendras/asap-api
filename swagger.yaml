@@ -1,0 +1,1409 @@
+swagger: '2.0'
+info:
+  description: InfoMaft API for Background screening checks.
+  version: '1.0'
+  title: InfoMart ASAP REST API
+  termsOfService: Terms of service
+  contact:
+    name: InfoMart
+    url: 'http://www.infomart-usa.com/about-us/'
+    email: customerservice@infomart-usa.com
+  license:
+    name: To partner with Infomart API
+    url: 'http://www.infomart-usa.com/contact/partner-with-infomart/'
+host: 'localhost:8080'
+basePath: /asap-api
+tags:
+  - name: Reports
+    description: Avaialble Reports information
+  - name: Education
+    description: Applicant Education Information
+  - name: References
+    description: Applicant references Information
+  - name: Criminal
+    description: Applicant Information for Criminal Checks
+  - name: Employment
+    description: Applicant Employment Information
+  - name: Address
+    description: Applicant Addresses Information
+  - name: Order
+    description: ' Order details for background checks'
+  - name: Webhooks
+    description: Configuring webhooks to receive event notifications
+  - name: mvr
+    description: Applicant Motor Vehicle Report
+paths:
+  /v1/order:
+    get:
+      tags:
+        - Order
+      summary: View a list of available Orders
+      operationId: listUsingGET_5
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - Order
+      summary: Add a new Order
+      operationId: saveOrderUsingPOST_5
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: order
+          description: order
+          required: true
+          schema:
+            $ref: '#/definitions/Orders'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/v1/order/{id}':
+    get:
+      tags:
+        - Order
+      summary: Search an order with the ID
+      operationId: showOrderDataUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Orders'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Order
+      summary: Update an Order
+      operationId: updateOrderUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: order
+          description: order
+          required: true
+          schema:
+            $ref: '#/definitions/Orders'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Order
+      summary: Delete an Order
+      operationId: deleteUsingDELETE_5
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/v1/order/{id}/address':
+    get:
+      tags:
+        - Address
+      summary: View a list of available Address data
+      operationId: listUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - Address
+      summary: Add a new Address data
+      operationId: saveOrderUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Address
+          description: Address
+          required: true
+          schema:
+            $ref: '#/definitions/Address'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Address
+      summary: Update the Address data
+      operationId: updateAddressUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Address
+          description: Address
+          required: true
+          schema:
+            $ref: '#/definitions/Address'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Address
+      summary: Delete the Address data
+      operationId: deleteUsingDELETE
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Address
+          description: Address
+          required: true
+          schema:
+            $ref: '#/definitions/Address'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/v1/order/{id}/criminal':
+    get:
+      tags:
+        - Criminal
+      summary: View a list of available Criminal data
+      operationId: listUsingGET_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - Criminal
+      summary: Add a new Criminal data
+      operationId: saveOrderUsingPOST_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Criminal
+          description: Criminal
+          required: true
+          schema:
+            $ref: '#/definitions/Criminal'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Criminal
+      summary: Update the Criminal data
+      operationId: updateCriminalUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Criminal
+          description: Criminal
+          required: true
+          schema:
+            $ref: '#/definitions/Criminal'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Criminal
+      summary: Delete the Criminal data
+      operationId: deleteUsingDELETE_1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Criminal
+          description: Criminal
+          required: true
+          schema:
+            $ref: '#/definitions/Criminal'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/v1/order/{id}/education':
+    get:
+      tags:
+        - Education
+      summary: View a list of available Education data
+      operationId: listUsingGET_2
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - Education
+      summary: Add a new Education data
+      operationId: saveOrderUsingPOST_2
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Education
+          description: Education
+          required: true
+          schema:
+            $ref: '#/definitions/Education'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Education
+      summary: Update the Education data
+      operationId: updateEducationUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Education
+          description: Education
+          required: true
+          schema:
+            $ref: '#/definitions/Education'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Education
+      summary: Delete the Education data
+      operationId: deleteUsingDELETE_2
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: Education
+          description: Education
+          required: true
+          schema:
+            $ref: '#/definitions/Education'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/v1/order/{id}/employment':
+    get:
+      tags:
+        - Employment
+      summary: View a list of available Employment data
+      operationId: listUsingGET_3
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - Employment
+      summary: Add a new Employment data
+      operationId: saveOrderUsingPOST_3
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: employment
+          description: employment
+          required: true
+          schema:
+            $ref: '#/definitions/Employment'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - Employment
+      summary: Update the employment data
+      operationId: updateEmploymentUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: employment
+          description: employment
+          required: true
+          schema:
+            $ref: '#/definitions/Employment'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Employment
+      summary: Delete the employment data
+      operationId: deleteUsingDELETE_3
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: employment
+          description: employment
+          required: true
+          schema:
+            $ref: '#/definitions/Employment'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/v1/order/{id}/mvr':
+    get:
+      tags:
+        - mvr
+      summary: View a list of available MotorVehicleReport data
+      operationId: listUsingGET_4
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - mvr
+      summary: Add a new MotorVehicleReport data
+      operationId: saveOrderUsingPOST_4
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: MotorVehicleReport
+          description: MotorVehicleReport
+          required: true
+          schema:
+            $ref: '#/definitions/MotorVehicleReport'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - mvr
+      summary: Update the MotorVehicleReport data
+      operationId: updateMotorVehicleReportUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: MotorVehicleReport
+          description: MotorVehicleReport
+          required: true
+          schema:
+            $ref: '#/definitions/MotorVehicleReport'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - mvr
+      summary: Delete the MotorVehicleReport data
+      operationId: deleteUsingDELETE_4
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: MotorVehicleReport
+          description: MotorVehicleReport
+          required: true
+          schema:
+            $ref: '#/definitions/MotorVehicleReport'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/v1/order/{id}/references':
+    get:
+      tags:
+        - References
+      summary: View a list of available References data
+      operationId: listUsingGET_6
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - References
+      summary: Add a new References data
+      operationId: saveOrderUsingPOST_6
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: References
+          description: References
+          required: true
+          schema:
+            $ref: '#/definitions/References'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - References
+      summary: Update the References data
+      operationId: updateReferencesUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: References
+          description: References
+          required: true
+          schema:
+            $ref: '#/definitions/References'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - References
+      summary: Delete the References data
+      operationId: deleteUsingDELETE_6
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: References
+          description: References
+          required: true
+          schema:
+            $ref: '#/definitions/References'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /v1/report:
+    get:
+      tags:
+        - Reports
+      summary: View a list of available Reports details
+      operationId: listUsingGET_7
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - Reports
+      summary: Add a new Report data
+      operationId: saveReportsUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Report
+          description: Report
+          required: true
+          schema:
+            $ref: '#/definitions/Report'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/v1/report/{id}':
+    put:
+      tags:
+        - Reports
+      summary: Update the Report data
+      operationId: updateReportsUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: report
+          description: report
+          required: true
+          schema:
+            $ref: '#/definitions/Report'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Reports
+      summary: Delete the Report data
+      operationId: deleteUsingDELETE_7
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /v1/webhooks:
+    get:
+      tags:
+        - Webhooks
+      summary: View a list of available Webhooks configurartion
+      operationId: listUsingGET_8
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successfully retrieved list
+          schema:
+            $ref: '#/definitions/Iterable'
+        '401':
+          description: You are not authorized to view the resource
+        '403':
+          description: Accessing the resource you were trying to reach is forbidden
+        '404':
+          description: The resource you were trying to reach is not found
+    post:
+      tags:
+        - Webhooks
+      summary: Add a new Webhooks data
+      operationId: saveWebhooksUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: webhooks
+          description: webhooks
+          required: true
+          schema:
+            $ref: '#/definitions/Webhooks'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/v1/webhooks/{id}':
+    put:
+      tags:
+        - Webhooks
+      summary: Update the Webhooks data
+      operationId: updateWebhooksUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: webhooks
+          description: webhooks
+          required: true
+          schema:
+            $ref: '#/definitions/Webhooks'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - Webhooks
+      summary: Delete the Webhooks data
+      operationId: deleteUsingDELETE_8
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+definitions:
+  Orders:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: Account Id for the Order
+      country:
+        type: string
+        description: Applicant country
+      dateOfBirth:
+        type: string
+        description: Applicant Date of Birth
+      firstName:
+        type: string
+        description: Applicant FirstName
+      id:
+        type: integer
+        format: int32
+        description: The database generated Id for Order
+      lastName:
+        type: string
+        description: Applicant LastName
+      maidenName:
+        type: string
+        description: Applicant maidenName
+      middleName:
+        type: string
+        description: Applicant MiddleName
+      packageName:
+        type: string
+        description: Package Name
+      products:
+        type: string
+        description: products list for the screening Order
+      reason:
+        type: string
+        description: Reason for applying background checks
+      referenceNumber:
+        type: string
+        description: Applicant Reference number
+      ssn:
+        type: string
+        description: Applicant SSN
+  Iterable«Webhooks»:
+    type: object
+  Address:
+    type: object
+    properties:
+      addressType:
+        type: string
+      aptNum:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      currentAddress:
+        type: boolean
+      foreignAddress:
+        type: string
+      state:
+        type: string
+      street2:
+        type: string
+      streetName:
+        type: string
+      streetNumber:
+        type: string
+      zip:
+        type: string
+      zipPlus4:
+        type: string
+  Iterable:
+    type: object
+  Iterable«Address»:
+    type: object
+  Iterable«Employment»:
+    type: object
+  Report:
+    type: object
+    properties:
+      accountId:
+        type: string
+      createdAt:
+        type: string
+      orderId:
+        type: string
+      reportDetails:
+        type: string
+      reportOptions:
+        type: string
+      reportUri:
+        type: string
+      report_id:
+        type: integer
+        format: int32
+        description: The database generated Id for References
+  Iterable«Criminal»:
+    type: object
+  Iterable«Education»:
+    type: object
+  MotorVehicleReport:
+    type: object
+    properties:
+      commercialDriver:
+        type: string
+      licNumbder:
+        type: string
+      licState:
+        type: string
+  Criminal:
+    type: object
+    properties:
+      countryCode:
+        type: string
+      crimProducts:
+        type: string
+      municipality:
+        type: string
+      postalCode:
+        type: string
+      region:
+        type: string
+  Education:
+    type: object
+    properties:
+      branch:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      dateFrom:
+        type: string
+      dateTo:
+        type: string
+      degree:
+        type: string
+      emailAddress:
+        type: string
+      graduated:
+        type: string
+      major:
+        type: string
+      minor:
+        type: string
+      orderEntered:
+        type: boolean
+      schoolName:
+        type: string
+      state:
+        type: string
+      zip:
+        type: boolean
+  Employment:
+    type: object
+    properties:
+      canContact:
+        type: boolean
+      city:
+        type: string
+      currentEmployer:
+        type: boolean
+      dateFrom:
+        type: string
+      dateTo:
+        type: string
+      emailAddress:
+        type: string
+      employerName:
+        type: string
+      phone:
+        type: string
+      position:
+        type: string
+      reasonLeaving:
+        type: string
+      state:
+        type: string
+      street:
+        type: string
+      supervisor:
+        type: string
+      wage:
+        type: string
+      zip:
+        type: string
+  Iterable«References»:
+    type: object
+  References:
+    type: object
+    properties:
+      contactEmail:
+        type: string
+      contactNumber:
+        type: string
+      countrycode:
+        type: string
+      personName:
+        type: string
+  Webhooks:
+    type: object
+    properties:
+      accountId:
+        type: string
+      createdAt:
+        type: string
+      eventTypes:
+        type: string
+      responseType:
+        type: string
+      webhookURL:
+        type: string
+      wh_id:
+        type: integer
+        format: int32
+        description: The database generated Id for References
+  Iterable«Orders»:
+    type: object
+  Iterable«Report»:
+    type: object
