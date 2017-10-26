@@ -1188,6 +1188,17 @@ paths:
 definitions:
   Orders:
     type: object
+    required:
+      - accountId
+      - dateOfBirth
+      - firstName
+      - lastName
+      - middleName
+      - packageName
+      - products
+      - reason
+      - referenceNumber
+      - ssn
     properties:
       accountId:
         type: string
@@ -1287,19 +1298,32 @@ definitions:
     type: object
   Report:
     type: object
+    required:
+      - accountId
+      - createdAt
+      - orderId
+      - reportDetails
+      - reportOptions
+      - reportUri
     properties:
       accountId:
         type: string
+        description: Account Id
       createdAt:
         type: string
+        description: Created At
       orderId:
         type: string
+        description: Order Id
       reportDetails:
         type: string
+        description: Report Details
       reportOptions:
         type: string
+        description: Report Options
       reportUri:
         type: string
+        description: Report URI
       report_id:
         type: integer
         format: int32
@@ -1310,116 +1334,206 @@ definitions:
     type: object
   MotorVehicleReport:
     type: object
+    required:
+      - licNumber
+      - licState
     properties:
       commercialDriver:
+        type: boolean
+        example: false
+        description: Is Commercial Driver
+      licNumber:
         type: string
-      licNumbder:
-        type: string
+        description: Licence Number
       licState:
         type: string
+        description: Licence State
   Criminal:
     type: object
+    required:
+      - crimProducts
+      - municipality
+      - postalCode
+      - region
     properties:
       countryCode:
         type: string
+        description: country code
       crimProducts:
         type: string
+        description: Criminal Search products
       municipality:
         type: string
+        description: Municipality
       postalCode:
         type: string
+        description: Postal Code
       region:
         type: string
+        description: Region
   Education:
     type: object
+    required:
+      - branch
+      - city
+      - country
+      - dateFrom
+      - dateTo
+      - degree
+      - graduated
+      - schoolName
+      - state
     properties:
       branch:
         type: string
+        description: Branch
       city:
         type: string
+        description: School City
       country:
         type: string
+        description: Country
       dateFrom:
         type: string
+        description: Date From
       dateTo:
         type: string
+        description: Date To
       degree:
         type: string
+        description: Degree Name
       emailAddress:
         type: string
+        description: Email Address
       graduated:
         type: string
+        description: Graduated
       major:
         type: string
+        description: Degree - Major
       minor:
         type: string
+        description: Degree - Minor
       orderEntered:
         type: boolean
+        example: false
+        description: Order Entered
       schoolName:
         type: string
+        description: School Name
       state:
         type: string
+        description: State
       zip:
         type: boolean
+        example: false
+        description: zip
   Employment:
     type: object
+    required:
+      - city
+      - currentEmployer
+      - dateFrom
+      - dateTo
+      - employerName
+      - phone
+      - position
+      - state
+      - street
+      - supervisor
+      - zip
     properties:
       canContact:
         type: boolean
+        example: false
+        description: Can Contact
       city:
         type: string
+        description: City
       currentEmployer:
         type: boolean
+        example: false
+        description: is currentEmployer
       dateFrom:
         type: string
+        description: Employment date - From
       dateTo:
         type: string
+        description: Employment date - to
       emailAddress:
         type: string
+        description: Email address
       employerName:
         type: string
+        description: Employer Name
       phone:
         type: string
+        description: phone number
       position:
         type: string
+        description: Employment position
       reasonLeaving:
         type: string
+        description: Reason for leaving
       state:
         type: string
+        description: State
       street:
         type: string
+        description: Street
       supervisor:
         type: string
+        description: Supervisor Name
       wage:
         type: string
+        description: Wage
       zip:
         type: string
+        description: zip
   Iterable«References»:
     type: object
   References:
     type: object
+    required:
+      - contactEmail
+      - contactNumber
+      - personName
     properties:
       contactEmail:
         type: string
+        description: Contact Email
       contactNumber:
         type: string
+        description: Contact Number
       countrycode:
         type: string
+        description: Country Code
       personName:
         type: string
+        description: Person Name
   Webhooks:
     type: object
+    required:
+      - accountId
+      - createdAt
+      - eventTypes
+      - webhookURL
     properties:
       accountId:
         type: string
+        description: Account Id
       createdAt:
         type: string
+        description: Created At
       eventTypes:
         type: string
+        description: Event Types
       responseType:
         type: string
+        description: Response Types
       webhookURL:
         type: string
+        description: Webhooks URL
       wh_id:
         type: integer
         format: int32
