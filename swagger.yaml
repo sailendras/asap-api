@@ -1233,31 +1233,52 @@ definitions:
     type: object
   Address:
     type: object
+    required:
+      - aptNum
+      - city
+      - currentAddress
+      - state
+      - streetName
+      - streetNumber
+      - zip
     properties:
       addressType:
         type: string
+        description: Address Type
       aptNum:
         type: string
+        description: Apt Number
       city:
         type: string
+        description: City
       country:
         type: string
+        description: Country
       currentAddress:
         type: boolean
+        example: false
+        description: Current Address
       foreignAddress:
         type: string
+        description: Foreign Address
       state:
         type: string
+        description: State
       street2:
         type: string
+        description: Street2 address
       streetName:
         type: string
+        description: Street Name
       streetNumber:
         type: string
+        description: Street Number
       zip:
         type: string
+        description: Zip
       zipPlus4:
         type: string
+        description: ZipPlus-4 digits
   Iterable:
     type: object
   Iterable«Address»:
