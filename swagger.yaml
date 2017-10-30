@@ -12,7 +12,7 @@ info:
     name: To partner with Infomart API
     url: 'http://www.infomart-usa.com/contact/partner-with-infomart/'
 host: 'localhost:8080'
-basePath: /asap-api
+basePath: /webasap-api
 tags:
   - name: Reports
     description: Avaialble Reports information
@@ -32,6 +32,8 @@ tags:
     description: Configuring webhooks to receive event notifications
   - name: mvr
     description: Applicant Motor Vehicle Report
+schemes:
+  - http
 paths:
   /v1/order:
     get:
@@ -1190,6 +1192,7 @@ definitions:
     type: object
     required:
       - accountId
+      - clientContactEmailId
       - dateOfBirth
       - firstName
       - lastName
@@ -1199,10 +1202,27 @@ definitions:
       - reason
       - referenceNumber
       - ssn
+      - userId
     properties:
       accountId:
         type: string
         description: Account Id for the Order
+      applicantEmailId:
+        type: string
+        description: Applicant contact Email Id
+      applicantPhoneNumber:
+        type: string
+        description: Applicant Phone Number
+      clientContactEmailId:
+        type: string
+        description: Client Contact Email id
+      clientContactOrgName:
+        type: string
+        description: Client Contact Organization Name
+      copyToApplicant:
+        type: boolean
+        example: false
+        description: Is Applicant requested the screening copy
       country:
         type: string
         description: Applicant country
@@ -1212,10 +1232,12 @@ definitions:
       firstName:
         type: string
         description: Applicant FirstName
-      id:
-        type: integer
-        format: int32
-        description: The database generated Id for Order
+      genderCode:
+        type: string
+        description: Gender Code
+      governmentId:
+        type: string
+        description: Government Id
       lastName:
         type: string
         description: Applicant LastName
@@ -1231,6 +1253,9 @@ definitions:
       products:
         type: string
         description: products list for the screening Order
+      race:
+        type: string
+        description: Race
       reason:
         type: string
         description: Reason for applying background checks
@@ -1240,6 +1265,9 @@ definitions:
       ssn:
         type: string
         description: Applicant SSN
+      userId:
+        type: string
+        description: UserId for the Account
   Iterable«Webhooks»:
     type: object
   Address:
@@ -1414,10 +1442,6 @@ definitions:
       minor:
         type: string
         description: Degree - Minor
-      orderEntered:
-        type: boolean
-        example: false
-        description: Order Entered
       schoolName:
         type: string
         description: School Name
@@ -1425,8 +1449,7 @@ definitions:
         type: string
         description: State
       zip:
-        type: boolean
-        example: false
+        type: string
         description: zip
   Employment:
     type: object
@@ -1534,10 +1557,6 @@ definitions:
       webhookURL:
         type: string
         description: Webhooks URL
-      wh_id:
-        type: integer
-        format: int32
-        description: The database generated Id for References
   Iterable«Orders»:
     type: object
   Iterable«Report»:
